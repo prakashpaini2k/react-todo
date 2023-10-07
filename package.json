@@ -2,15 +2,21 @@
   "name": "todo-list",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://github.com/Praxash2K/react-todo",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
+    "next": "latest",
     "react": "latest",
-    "react-dom": "latest",
-    "next": "latest"
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.0.0"
   }
 }

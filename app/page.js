@@ -1,95 +1,106 @@
-import Image from 'next/image'
-import styles from './page.module.css'
-
+'use client'
+import { useState } from 'react'
+import './page.css'
 export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    const [formState, setFormState] = useState('');
+    const [todoArray, SetTodoArray] = useState([]);
+    const [completedArray, SetCompletedArray] = useState([])
+    class Todo {
+        constructor(title, description) {
+            this.title = title;
+            this.description = description;
+            this.isCompleted = false;
+        }
+    }
+    const handleAction = (value, index) => {
+        let targetTodo = todoArray?.slice(index, index + 1)[0];
+        if (targetTodo) {
+            let updatedTodoArray = todoArray?.filter((_, i) => i !== index);
+            SetTodoArray(updatedTodoArray)
+            if (value == 'complete') {
+                SetCompletedArray(current => [...current, targetTodo]);
+            }
+        }
+    }
+
+    const TodoInput = ({ formState }) => {
+        const [title, setTitle] = useState('');
+        const [description, setDescription] = useState('');
+
+        const handleInputChange = e => {
+            if (e.target.id == 'title') {
+                setTitle(e.target.value);
+            }
+            if (e.target.id == 'desc') {
+                setDescription(e.target.value);
+            }
+        };
+
+        const handlekeyEnter = e => {
+            if (e.key === 'Enter' && e.target.value != '') {
+                let todoObj = new Todo(title, description);
+                SetTodoArray(current => [...current, todoObj]);
+                setTitle('');
+                setDescription('');
+                setFormState('');
+            }
+        };
+
+        return formState === 'new' ? (
+            <form className="input card br-8">
+                <input className='custom-input br-8' placeholder='add title' id='title' value={title} onKeyDown={handlekeyEnter} onChange={handleInputChange} type="text" />
+                <input className='custom-input br-8' placeholder='add description' id='desc' onKeyDown={handlekeyEnter} value={description} onChange={handleInputChange} type="text" />
+            </form>
+        ) : null;
+    };
+
+    return (
+        <div className="container">
+            <h2 className='header padd-1 br-8'>Todo List</h2>
+            <div className="body">
+                <div className="side padd-1 br-8">
+                    <button onClick={() => setFormState('new')} className='btn btn-new'>New</button>
+                </div>
+                {formState == 'new' &&
+                    <div className="main padd-1 br-8">
+                        <TodoInput formState={formState} SetTodoArray={SetTodoArray} />
+                    </div>
+                }
+                {todoArray?.length > 0 &&
+                    <div className="left main content padd-1 br-8">
+                        <h3 className='sub-header'>Todos</h3>
+                        {todoArray.map((todo, i) => (
+                            <div className="card br-8" key={i} >
+                                <div className='card-title br-8' >
+                                    <div className="btn-holder">
+                                        <button className='btn btn-green br-1rm' onClick={() => { handleAction('complete', i) }} >complete</button>
+                                        <button className='btn btn-danger br-1rm' onClick={() => { handleAction('delete', i) }} >delete</button>
+                                    </div>
+                                    {todo?.title}
+                                </div>
+                                <div className='card-desc br-8' >
+                                    {todo?.description}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                }
+                {completedArray?.length > 0 &&
+                    <div className="right main content padd-1 br-8">
+                        <h3 className='sub-header'>Completed</h3>
+                        {completedArray.map((todo, i) => (
+                            <div className="card br-8" key={i} >
+                                <div className='card-title br-8' >
+                                    {todo?.title}
+                                </div>
+                                <div className='card-desc br-8' >
+                                    {todo?.description}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                }
+            </div>
         </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+    );
 }
