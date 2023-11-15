@@ -1,5 +1,5 @@
 .container{
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 1rem auto;
 }
 .padd-1{
@@ -25,16 +25,24 @@
     box-shadow: -1px 1px 4px #758aac1f;
     padding: .75rem;
 }
+.side{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 .btn{
     border: none;
     border-radius: 1rem;
-    padding: .5rem .75rem;
-}
-
-.btn-new {
-    background-color: lightgreen;
     padding: .5rem 1rem;
-
+}
+.btn-warning {
+    background-color: gold;
+}
+.btn-green{
+    background-color: lightgreen;
+}
+.btn-danger{
+    background-color: lightcoral;
 }
 .body{
     display: flex;
@@ -45,7 +53,8 @@
     flex-direction: column;
     width: 50%;
     gap: 1rem;
-    background-color:lightgoldenrodyellow;
+    background-color:lightyellow;
+    border: 1px solid lightgoldenrodyellow;
 }
 .card-title , .card-desc{
     padding: .25rem;
@@ -57,18 +66,12 @@
 .btn-holder{
     float: right;
     display: flex;
-    gap: 1rem;
-
+    gap: 10px;
 }
 .sub-header{
     margin: 0;
 }
-.btn-green{
-    background-color: lightgreen;
-}
-.btn-danger{
-    background-color: lightcoral;
-}
+
 @media screen and (max-width: 576px) {
     .body{
         flex-direction: column;
@@ -78,6 +81,9 @@
     .main{
         width: calc(100vw - 4rem);
         margin-right: 0;
+    }
+    .btn-holder.mweb{
+        flex-direction: column;
     }
 }
 
