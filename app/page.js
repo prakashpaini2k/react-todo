@@ -8,12 +8,12 @@ class Todo {
     }
 }
 export default function Home() {
-    const [todoArray, SetTodoArray] = useState([]);
+    const [todoArray, setTodoArray] = useState([]);
     const [targetTodoIndex,setTargetTodoIndex] = useState();
     const [formState, setFormState] = useState('');
     const [formTitle, setFormTitle] = useState('');
     const [formDescription, setFormDescription] = useState('');
-    const [completedArray, SetCompletedArray] = useState([]);
+    const [completedArray, setCompletedArray] = useState([]);
 
     const formReset = ()=>{
         setFormTitle('');
@@ -28,11 +28,11 @@ export default function Home() {
         let targetTodo = todoArray?.slice(index, index + 1)[0];
         let updatedTodoArray = todoArray?.filter((_, i) => i !== index);
         if (value === 'complete') {
-            SetCompletedArray(current => [...current,targetTodo]);
-            SetTodoArray(updatedTodoArray)
+            setCompletedArray(current => [...current,targetTodo]);
+            setTodoArray(updatedTodoArray)
         }
         if (value === 'delete'){
-            SetTodoArray(updatedTodoArray)
+            setTodoArray(updatedTodoArray)
         }
         if (value === 'edit'){
             setFormState('edit');
@@ -42,14 +42,14 @@ export default function Home() {
             setFormDescription(targetTodo.description)
         }
         if (value === 'add' && formState === 'new' ){
-            SetTodoArray(current => [...current, (handleTodo())]);
+            setTodoArray(current => [...current, (handleTodo())]);
             formReset()
         }
         if (value === 'done' || (value === 'add' && formState === 'edit')  ){
             let updatedTodoArray = [...todoArray];
             console.log(targetTodoIndex);
             updatedTodoArray[targetTodoIndex] = handleTodo();
-            SetTodoArray(updatedTodoArray)
+            setTodoArray(updatedTodoArray)
             formReset()
         }
         if (value === 'cancel'){
