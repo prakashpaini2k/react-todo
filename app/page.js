@@ -27,6 +27,11 @@ export default function Home() {
     const handleAction = (value, index) => {
         let targetTodo = todoArray?.slice(index, index + 1)[0];
         let updatedTodoArray = todoArray?.filter((_, i) => i !== index);
+        if (value === 'new'){
+            setFormState('new')
+            setFormTitle('');
+            setFormDescription('');
+        }
         if (value === 'complete') {
             setCompletedArray(current => [...current,targetTodo]);
             setTodoArray(updatedTodoArray)
@@ -37,7 +42,6 @@ export default function Home() {
         if (value === 'edit'){
             setFormState('edit');
             setTargetTodoIndex(index);
-            console.log(index);
             setFormTitle(targetTodo.title);
             setFormDescription(targetTodo.description)
         }
@@ -54,6 +58,9 @@ export default function Home() {
         }
         if (value === 'cancel'){
             formReset()
+        }
+        if (value === 'clear'){
+            setCompletedArray([])
         }
     }
 
@@ -78,7 +85,7 @@ export default function Home() {
             <h2 className='header padd-1 br-8'>Todo List</h2>
             <div className="body">
                 <div className="side padd-1 br-8">
-                    <button onClick={() => setFormState('new')} className='btn btn-warning'>New</button>
+                    <button onClick={() => handleAction('new')} className='btn btn-warning'>New</button>
                 </div>
                 {(formState === 'new' || formState === 'edit') &&
                     <div className="main padd-1 br-8">
@@ -119,7 +126,11 @@ export default function Home() {
                 }
                 {completedArray?.length > 0 &&
                     <div className="right main content padd-1 br-8">
-                        <h3 className='sub-header'>Completed</h3>
+                        <div className='sub-header'>
+                            <h3>Completed</h3>
+                            <button className='btn btn-danger' onClick={() => { handleAction('clear')}}>Clear</button>
+                        </div>
+
                         {completedArray.map((todo, i) => (
                             <div className="card br-8" key={i} >
                                 <div className='card-title br-8' >

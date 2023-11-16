@@ -69,6 +69,12 @@
     gap: 10px;
 }
 .sub-header{
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+h3{
     margin: 0;
 }
 
