@@ -28,7 +28,8 @@
 .side{
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
+    text-wrap: nowrap;
 }
 .btn{
     border: none;
@@ -37,12 +38,19 @@
 }
 .btn-warning {
     background-color: gold;
+    border: 1px solid gold;
+}
+.btn-light {
+    background-color:lightyellow;
+    border: 1px solid wheat;
 }
 .btn-green{
     background-color: lightgreen;
+    border: 1px solid lightgreen;
 }
 .btn-danger{
     background-color: lightcoral;
+    border: 1px solid lightcoral;
 }
 .body{
     display: flex;
@@ -54,7 +62,8 @@
     width: 50%;
     gap: 1rem;
     background-color:lightyellow;
-    border: 1px solid lightgoldenrodyellow;
+    border: 1px solid wheat;
+    height: fit-content;
 }
 .card-title , .card-desc{
     padding: .25rem;
