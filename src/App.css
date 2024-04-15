@@ -2,7 +2,7 @@
     font-family: sans-serif;
 }
 .container{
-    margin: 2rem auto;
+    margin: 1rem auto;
     border-radius: 8px;
 }
 .padd-1{
@@ -16,7 +16,7 @@
 }
 .card-container{
     gap: 1rem;
-    max-height: calc(100dvh - 240px);
+    max-height: calc(100dvh - 250px);
     overflow: auto;
 }
 .custom-input{
@@ -40,10 +40,17 @@
     align-items: center;
 }
 .header{
+    justify-content: space-between;
+}
+.title{
     font-size: 30px;
     font-weight: 600;
     margin-bottom: 1rem !important;
 }
+.nav{
+    gap: 1rem;
+}
+
 .container > div {
     width: 50vw;
     margin: auto;
@@ -71,7 +78,7 @@
 .btn{
     border: none;
     border-radius: 2rem;
-    padding: .75rem 1.5rem;
+    padding:.5rem 1rem ;
     height: min-content;
     border:1px solid wheat;
     background-color: wheat;
@@ -81,7 +88,7 @@
 }
 .card-title , .card-desc{
     width: 100%;
-    padding: .5rem;
+    padding: .25rem;
     text-overflow: ellipsis;
     overflow: hidden;
     font-size: 20px;
@@ -98,11 +105,10 @@
 }
 
 @media screen and (max-width: 576px) {
-    .main{
-        width: calc(100vw - 4rem);
-        margin-right: 0;
+    .container > div{
+        width: calc(100vw - 2rem);
     }
-    .btn-holder.mweb{
+    .header{
         flex-direction: column;
     }
 }
