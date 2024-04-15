@@ -58,6 +58,10 @@
 .card{
     flex :1;
 }
+.icon{
+    height: 20px;
+    width: 20px;
+}
 .side{
     display: flex;
     flex-direction: column;
@@ -66,27 +70,15 @@
 }
 .btn{
     border: none;
-    border-radius: 1rem;
-    padding: .5rem 1rem;
+    border-radius: 2rem;
+    padding: .75rem 1.5rem;
     height: min-content;
+    border:1px solid wheat;
+    background-color: wheat;
 }
-.btn-warning {
-    background-color: gold;
-    border: 1px solid gold;
+.btn--outline{
+    background-color: white;
 }
-.btn-light {
-    background-color:lightyellow;
-    border: 1px solid wheat;
-}
-.btn-green{
-    background-color: lightgreen;
-    border: 1px solid lightgreen;
-}
-.btn-danger{
-    background-color: lightcoral;
-    border: 1px solid lightcoral;
-}
-
 .card-title , .card-desc{
     width: 100%;
     padding: .5rem;

@@ -1,6 +1,9 @@
 
 import './App.css'
 import { useState } from 'react'
+import completeIcon from './assets/complete.svg'
+import deleteIcon from './assets/delete.svg'
+import editIcon from './assets/edit.svg'
 class Todo {
     constructor(formTitle, formDescription) {
         this.title = formTitle;
@@ -14,6 +17,7 @@ export default function Home() {
     const [formState, setFormState] = useState('new');
     const [formTitle, setFormTitle] = useState('');
     const [formDescription, setFormDescription] = useState('');
+    const [btnText, setBtnText] = useState('create');
 
     const formReset = () => {
         setFormTitle('');
@@ -39,6 +43,7 @@ export default function Home() {
             setTargetTodoIndex(index);
             setFormTitle(targetTodo.title);
             setFormDescription(targetTodo.description)
+            setBtnText('save');
         }
         if (value === 'add' && formState === 'new' && formTitle !== '') {
             setTodoArray(current => [...current, (handleTodo())]);
@@ -48,6 +53,7 @@ export default function Home() {
             let updatedTodoArray = [...todoArray][targetTodoIndex] = handleTodo();
             setTodoArray(updatedTodoArray);
             formReset()
+            setBtnText('create');
         }
         if (value === 'cancel') {
             formReset()
@@ -87,8 +93,8 @@ export default function Home() {
                         <div className='flex'>
                             <input className='custom-input br-8' placeholder='add summary' id='desc' onKeyDown={handlekeyPress} value={formDescription} onChange={handleInputChange} type="text" />
                             <div className="btn-holder">
-                                <button onClick={() => { handleAction('add') }} className='btn'>create</button>
-                                <button onClick={() => { handleAction('cancel') }} className='btn'>cancel</button>
+                                <button onClick={() => { handleAction('add') }} className='btn'>{btnText}</button>
+                                <button onClick={() => { handleAction('cancel') }} className='btn btn--outline'>cancel</button>
                             </div>
                         </div>
                     }
@@ -100,11 +106,13 @@ export default function Home() {
                                 <div className='card-title br-8'>{todo?.title}</div>
                                 <div className="btn-holder mweb">
                                     <div className='br-1rm' onClick={() => { handleAction('complete', i) }} >
-
+                                        <img className='icon' src={completeIcon} alt="" />
                                     </div>
                                     <div className='br-1rm' onClick={() => { handleAction('edit', i) }} >
+                                        <img className='icon' src={editIcon} alt="" />
                                     </div>
                                     <div className='br-1rm' onClick={() => { handleAction('delete', i) }} >
+                                        <img className='icon' src={deleteIcon} alt="" />
                                     </div>
                                 </div>
                             </div>
