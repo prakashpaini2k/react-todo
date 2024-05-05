@@ -1,6 +1,6 @@
 # Getting Started with Create React App
 
-The project demo is deoployed here https://react-todo-pp2k.netlify.app/
+The project demo is deployed here https://react-todo-pp2k.netlify.app/
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

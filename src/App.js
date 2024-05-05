@@ -1,6 +1,6 @@
 
 import './App.css'
-import { useState} from 'react'
+import { useEffect, useState } from 'react'
 import completeIcon from './assets/complete.svg'
 import deleteIcon from './assets/delete.svg'
 import editIcon from './assets/edit.svg'
@@ -13,14 +13,18 @@ class Todo {
     }
 }
 export default function Home() {
-    const [todoArray, setTodoArray] = useState([]);
+    const [todoArray, setTodoArray] = useState(() => {
+        return JSON.parse(localStorage.getItem('todoArray')) || [];
+    });
+    const [completedTodoArray, setcompletedTodoArray] = useState(() => {
+        return JSON.parse(localStorage.getItem('completedTodoArray')) || [];
+    });
     const [targetTodoIndex, setTargetTodoIndex] = useState();
     const [formState, setFormState] = useState('new');
     const [formTitle, setFormTitle] = useState('');
     const [formDescription, setFormDescription] = useState('');
     const [btnText, setBtnText] = useState('create');
     const [navState, setNavState] = useState('1');
-    const [CompletedTodoArray, setCompletedTodoArray] = useState([]);
     const [todoId, setTodoId] = useState(0);
 
     const formReset = () => {
@@ -37,10 +41,11 @@ export default function Home() {
         setTargetTodoIndex(index);
         let targetTodo = todoArray.slice(index, index + 1)[0];
         let updatedTodoArray = todoArray.filter((_, i) => i !== index);
-        let updatedCompletedTodoArray = CompletedTodoArray.filter((_, i) => i !== index);
+        let updatedcompletedTodoArray = completedTodoArray.filter((_, i) => i !== index);
+
         if (value === 'complete') {
             targetTodo.completed = !targetTodo.completed
-            setCompletedTodoArray(current => [...current, targetTodo])
+            setcompletedTodoArray(current => [...current, targetTodo])
             setTodoArray(updatedTodoArray)
             formReset()
         }
@@ -48,7 +53,7 @@ export default function Home() {
             setTodoArray(updatedTodoArray)
         }
         if (value === 'clear') {
-            setCompletedTodoArray(updatedCompletedTodoArray)
+            setcompletedTodoArray(updatedcompletedTodoArray)
         }
         if (value === 'edit') {
             setFormState('edit');
@@ -90,8 +95,13 @@ export default function Home() {
         setNavState(value)
     }
 
+    useEffect(() => {
+        localStorage.setItem('todoArray', JSON.stringify(todoArray));
+        localStorage.setItem('completedTodoArray', JSON.stringify(completedTodoArray))
+    }, [todoArray, completedTodoArray])
+
+
     const TodoCard = (props) => {
-        console.log(props);
         return (
             <div className="card br-8" key={props.i} >
                 <div className='flex flex-center'>
@@ -150,7 +160,7 @@ export default function Home() {
                     {navState !== '2' && todoArray?.length > 0 && todoArray.map((todo, i) => (
                         <TodoCard todo={todo} key={i} i={i}></TodoCard>
                     ))}
-                    {navState !== '1' && CompletedTodoArray?.length > 0 && CompletedTodoArray.map((todo, i) => (
+                    {navState !== '1' && completedTodoArray?.length > 0 && completedTodoArray.map((todo, i) => (
                         <TodoCard todo={todo} key={i} i={i}></TodoCard>
                     ))}
                 </div>
