@@ -69,11 +69,16 @@
     height: 20px;
     width: 20px;
 }
+.icon:hover{
+    scale: 1.1;
+    transition: all .2s ease-in-out;
+}
 .side{
     display: flex;
     flex-direction: column;
     gap: 12px;
     text-wrap: nowrap;
+   
 }
 .btn{
     border: none;
@@ -83,8 +88,13 @@
     border:1px solid wheat;
     background-color: wheat;
 }
+.btn:hover{
+    scale: 1 !important;
+    transition: all .2s ease-in-out;
+}
 .btn--outline{
     background-color: white;
+    scale: 0.9;
 }
 .card-title , .card-desc{
     width: 100%;
@@ -100,7 +110,7 @@
 }
 .btn-holder{
     display: flex;
-    gap: 20px;
+    gap: 28px;
     justify-content: flex-end;
 }
 
